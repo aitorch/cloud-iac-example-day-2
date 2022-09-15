@@ -13,17 +13,28 @@ jobs:
           echo "First step in the Terraform Workflow"
       - name: Check out the code in this PR
         uses: actions/checkout@v3
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
+
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
+       
+      - name: 'Authenticate to Google Cloud'
+        id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{secrets.GOOGLE_CREDENTIALS}}'
+
       - name: Terraform init
         id: init
         run: terraform init
+
       - name: Terraform validate
         id: validate
         run: terraform validate --no-color
+        
       - name: Terraform plan
         id: plan
         run: terraform plan --no-color -input=false -var-file=terraform.tfvars
