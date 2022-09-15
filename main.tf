@@ -16,7 +16,7 @@ resource "google_cloud_run_service" "my-service" { #my-service["hola-mundo"]
     }
   }
   traffic {
-    percent         = 100
+    percent         = 90
     latest_revision = true
   }
   location = var.region
