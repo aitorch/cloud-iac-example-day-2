@@ -1,0 +1,17 @@
+name: Terraform workflow
+
+on:
+  pull_request:
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Init Message
+        run: |
+          echo "First step in the Terraform Workflow"
+  
+    
+
+  
