@@ -11,6 +11,10 @@ jobs:
       - name: Init Message
         run: |
           echo "First step in the Terraform Workflow"
+      - name: Check out the code in this PR
+        uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
   
     
 
