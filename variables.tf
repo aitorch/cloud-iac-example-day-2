@@ -1,5 +1,5 @@
 variable "region" {
-  type = string
+  type        = string
   description = "Region of the project"
-  default = "europe-west1"
+  default     = "europe-west1"
 }
