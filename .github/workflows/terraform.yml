@@ -2,6 +2,9 @@ name: Terraform workflow
 
 on:
   pull_request:
+  push:
+    branches:
+      - "main"
 
 jobs:
   terraform:
@@ -37,9 +40,11 @@ jobs:
 
       - name: Terraform plan
         id: plan
+        if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false -var-file=terraform.tfvars
 
       - name: Comment Pull Request
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
         env:
           PLAN: "terraform rules\n${{ steps.plan.outputs.stdout }}"
@@ -62,6 +67,9 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
 
   
     
